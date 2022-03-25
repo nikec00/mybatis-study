@@ -1,10 +1,12 @@
 package com.entity;
 
+import java.io.Serializable;
+
 /**
  * @author nkc
  * @date 22/3/25
  */
-public class Dept {
+public class Dept implements Serializable {
 
     private Integer did;
 

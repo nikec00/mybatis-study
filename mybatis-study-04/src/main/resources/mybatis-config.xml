@@ -13,14 +13,7 @@
 
     <!--引入properties文件-->
     <properties resource="jdbc.properties"/>
-    <settings>
-        <!--开启全局的懒加载-->
-        <setting name="lazyLoadingEnabled" value="true"/>
-        <!--关闭立即加载，其实不用配置，默认为false-->
-        <setting name="aggressiveLazyLoading" value="false"/>
-        <!--开启Mybatis的sql执行相关信息打印-->
-        <setting name="logImpl" value="STDOUT_LOGGING" />
-    </settings>
+
     <!--设置类型别名-->
     <typeAliases>
         <!--
@@ -31,7 +24,7 @@
         -->
         <!--<typeAlias type="com.mybatis.pojo.User"></typeAlias>-->
         <!--以包为单位，将包下所有的类型设置默认的类型别名，即类名且不区分大小写-->
-        <package name="com.entity"/>
+        <package name="com.mybatis.pojo"/>
     </typeAliases>
 
     <!--
@@ -94,6 +87,6 @@
             1、mapper接口所在的包要和映射文件所在的包一致
             2、mapper接口要和映射文件的名字一致
         -->
-        <package name="com.dao"/>
+        <package name="com..mybatis.mapper"/>
     </mappers>
 </configuration>

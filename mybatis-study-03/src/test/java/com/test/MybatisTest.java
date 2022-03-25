@@ -9,7 +9,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
-import org.junit.experimental.theories.suppliers.TestedOn;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,7 +72,19 @@ public class MybatisTest {
         EmpDAO mapper = sqlSession.getMapper(EmpDAO.class);
         List<Emp> list = mapper.findAll();
         System.out.println("结果：" + list);
+    }
+
+    @Test
+    public void lazyFind() throws IOException {
+        InputStream stream = Resources.getResourceAsStream("mybatis-config.xml");
+        SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(stream);
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        EmpDAO mapper = sqlSession.getMapper(EmpDAO.class);
+        List<Emp> list = mapper.findLazyAll();
+        System.out.println("结果：" + list);
 
     }
+
 
 }

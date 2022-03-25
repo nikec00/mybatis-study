@@ -23,4 +23,7 @@ public interface EmpDAO {
      * @return
      */
     int saveBatchEmp(@Param("emps") List<Emp> emps);
+
+
+    List<Emp> findLazyAll();
 }

@@ -12,6 +12,7 @@
         <module>mybatis-study-01</module>
         <module>mybatis-study-02</module>
         <module>mybatis-study-03</module>
+        <module>mybatis-study-04</module>
     </modules>
 
     <properties>

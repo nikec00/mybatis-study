@@ -2,27 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.EmpDAO">
 
-    <resultMap id="empResultMap" type="Emp">
-        <id property="id" column="id"/>
-        <result property="userName" column="user_name"/>
-        <result property="password" column="password"/>
-        <result property="age" column="age"/>
-        <result property="dept.did" column="did"/>
-        <result property="dept.deptName" column="dept_name"/>
-    </resultMap>
+        <resultMap id="empResultMap" type="Emp">
+            <id property="id" column="id"/>
+            <result property="userName" column="user_name"/>
+            <result property="password" column="password"/>
+            <result property="age" column="age"/>
+            <result property="dept.did" column="did"/>
+            <result property="dept.deptName" column="dept_name"/>
+        </resultMap>
 
-    <resultMap id="empResultMap2" type="Emp">
-        <id property="id" column="id"/>
-        <result property="userName" column="user_name"/>
-        <result property="age" column="age"/>
-        <result property="password" column="password"/>
-        <association property="dept" javaType="Dept">
-            <id property="did" column="did"/>
-            <result property="deptName" column="dept_name"/>
-        </association>
-    </resultMap>
+<!--    <resultMap id="empResultMap2" type="Emp">-->
+<!--        <id property="id" column="id"/>-->
+<!--        <result property="userName" column="user_name"/>-->
+<!--        <result property="age" column="age"/>-->
+<!--        <result property="password" column="password"/>-->
+<!--        <association property="dept" javaType="Dept">-->
+<!--            <id property="did" column="did"/>-->
+<!--            <result property="deptName" column="dept_name"/>-->
+<!--        </association>-->
+<!--    </resultMap>-->
     <sql id="empColumns">
-        id,user_name,password,age,did
+        id
+        ,user_name,password,age,did
     </sql>
     <insert id="saveBatchEmp">
         INSERT INTO t_emp VALUES
@@ -30,8 +31,24 @@
             (null,#{emp.userName},#{emp.password},#{emp.age},#{emp.dept.did})
         </foreach>
     </insert>
-    <select id="findAll" resultMap="empResultMap2">
-        SELECT id,user_name,password,age,emp.did,dept.dept_name
-        FROM t_emp emp LEFT JOIN t_dept dept ON emp.did = dept.did
+    <select id="findAll" resultMap="empResultMap">
+        SELECT id, user_name, password, age, emp.did, dept.dept_name
+        FROM t_emp emp
+                 LEFT JOIN t_dept dept ON emp.did = dept.did
+    </select>
+    <!--延时加载（懒加载，按需加载）-->
+    <resultMap id="lazyLoad" type="Emp">
+        <id property="id" column="id"/>
+        <result property="userName" column="user_name"/>
+        <result property="age" column="age"/>
+        <result property="password" column="password"/>
+        <association property="dept" javaType="Dept" select="com.dao.DeptDAO.getDeptById">
+            <id property="did" column="did"/>
+            <result property="deptName" column="dept_name"/>
+        </association>
+    </resultMap>
+    <select id="findLazyAll" resultMap="lazyLoad">
+        SELECT *
+        FROM t_emp
     </select>
 </mapper>

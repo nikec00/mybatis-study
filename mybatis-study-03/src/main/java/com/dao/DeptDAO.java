@@ -18,4 +18,10 @@ public interface DeptDAO {
      */
     int saveBatchDept(@Param("depts") List<Dept> depts);
 
+    /**
+     * 根据部门id查询
+     * @param did
+     * @return
+     */
+    Dept getDeptById(@Param("did")Integer did);
 }

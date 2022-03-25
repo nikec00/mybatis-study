@@ -1,10 +1,12 @@
 package com.entity;
 
+import java.io.Serializable;
+
 /**
  * @author nkc
  * @date 22/3/25
  */
-public class Emp {
+public class Emp implements Serializable {
     private Integer id;
 
     private String userName;
